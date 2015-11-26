@@ -25,6 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('monitor:check')->everyMinute();
+        $schedule->command('monitor:check')->everyMinute()->withoutOverlapping();
+        $schedule->command('monitor:warning')->everyMinute()->withoutOverlapping();
     }
 }
