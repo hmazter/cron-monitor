@@ -12,9 +12,11 @@ class SlackIntegration implements IntegrationInterface
      */
     private $settings;
 
-    public function __construct($settings) {
+    public function __construct($settings)
+    {
         $this->settings = $settings;
     }
+
     /**
      * @param Warning $warning
      */
@@ -23,7 +25,7 @@ class SlackIntegration implements IntegrationInterface
         $url = $this->settings->webhook_url;
         $payload = [
             'username' => 'CronMonitor',
-            'text' => $warning->getTitle() . " <".route('account.monitors.index')."|View my monitors>",
+            'text' => $warning->getTitle() . " <" . route('account.monitors.index') . "|View my monitors>",
         ];
 
         $client = new Client();
