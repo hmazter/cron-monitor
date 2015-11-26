@@ -19,7 +19,7 @@ class EmailIntegration implements IntegrationInterface
      *
      * @param Warning $warning
      */
-    public function notify($warning)
+    public function notify(Warning $warning)
     {
         \Mail::send(
             'emails.notify',

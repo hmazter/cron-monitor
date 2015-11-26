@@ -68,6 +68,8 @@
                 <div class="media-body">
                     <h4 class="media-heading">Slack</h4>
 
+                    <p>Create an Incoming WebHook in Slack, selecting which channel to post to. Copy WebHook Url to this slack integration.</p>
+
                     <p>Gummies chocolate bar sugar plum. Oat cake pastry pie. Bear claw dragée cotton candy dessert
                         tiramisu jujubes brownie jujubes. Marshmallow bonbon pudding dragée pudding cupcake sweet.
                         Lollipop macaroon icing biscuit jelly chocolate lemon drops. </p>

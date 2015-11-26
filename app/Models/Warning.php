@@ -53,7 +53,7 @@ class Warning extends Model
     public function getMessage()
     {
         if ($this->type == Monitor::STATE_LATE) {
-            return "The task did not check back with <i>complete</i> in the allowed execution time.";
+            return "The task did not check back in the allowed execution time.";
         }
 
         return "Unknown error";

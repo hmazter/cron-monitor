@@ -2,12 +2,14 @@
 
 namespace App\Integrations;
 
+use App\Models\Warning;
+
 interface IntegrationInterface
 {
     public function __construct($settings);
 
     /**
-     * @param \App\Models\Warning $warning
+     * @param Warning $warning
      */
-    public function notify($warning);
+    public function notify(Warning $warning);
 }
