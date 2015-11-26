@@ -2,6 +2,9 @@
 
 namespace App\Integrations;
 
+use App\Models\Warning;
+use Illuminate\Mail\Message;
+
 class EmailIntegration implements IntegrationInterface
 {
     private $settings;
@@ -12,14 +15,20 @@ class EmailIntegration implements IntegrationInterface
     }
 
     /**
-     * Notify customer by Email about failed monitor
+     * Notify user by Email about failed monitor task
      *
-     * @param int $type
+     * @param Warning $warning
      */
-    public function notify($type)
+    public function notify($warning)
     {
-        dd("Notify customer by email about failed ($type) monitor, with settings", $this->settings);
-
-        //\Mail::send();
+        \Mail::send(
+            'emails.notify',
+            ['title' => $warning->getTitle(), 'text' => $warning->getMessage()],
+            function (Message $message) use ($warning) {
+                $message
+                    ->to($this->settings->email)
+                    ->subject("[{$warning->monitor->name}] Warning, task has failed!");
+            }
+        );
     }
 }

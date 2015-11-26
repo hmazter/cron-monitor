@@ -40,4 +40,22 @@ class Warning extends Model
         return static::with('monitor', 'monitor.user')
             ->whereNull('sent_at')->get();
     }
+
+    public function getTitle()
+    {
+        if ($this->type == Monitor::STATE_LATE) {
+            return "Warning, task {$this->monitor->name} is running late!";
+        }
+
+        return "Warning, task {$this->monitor->name} has failed!";
+    }
+
+    public function getMessage()
+    {
+        if ($this->type == Monitor::STATE_LATE) {
+            return "The task did not check back with <i>complete</i> in the allowed execution time.";
+        }
+
+        return "Unknown error";
+    }
 }

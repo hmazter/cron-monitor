@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    'from' => ['address' => 'cron-monitor@hmazter.com', 'name' => 'CronMonitor'],
 
     /*
     |--------------------------------------------------------------------------

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Warning;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class SendWarnings extends Command
@@ -38,9 +39,13 @@ class SendWarnings extends Command
     {
         $warnings = Warning::getUnsent();
 
+        $this->info("Found " . count($warnings) . " unsent warnings");
+
         /** @var Warning $warning */
         foreach ($warnings as $warning) {
-            $warning->monitor->notify($warning->type);
+            $warning->monitor->notify($warning);
+            $warning->sent_at = new Carbon();
+            $warning->save();
         }
     }
 }

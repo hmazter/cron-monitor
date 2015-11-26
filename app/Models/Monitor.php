@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Integrations\IntegrationInterface;
 use Carbon\Carbon;
 use Exceptions\IntegrationTypeException;
 use Illuminate\Database\Eloquent\Model;
@@ -90,20 +91,29 @@ class Monitor extends Model
     }
 
     /**
-     * @param int $type
+     * Notify through all connected integrations
+     *
+     * @param Warning $warning
      * @throws IntegrationTypeException
      */
-    public function notify($type)
+    public function notify($warning)
     {
+        // integrations connected to each monitor
+        // $integrations = $this->integrations;
+
+        // all integrations connected directly to user
+        $integrations = $this->user->integrations;
+
         /** @var Integration $customerIntegration */
-        foreach ($this->integrations as $customerIntegration) {
+        foreach ($integrations as $customerIntegration) {
             $class = "\\App\\Integrations\\" . ucfirst($customerIntegration->type) . "Integration";
             if (!class_exists($class)) {
                 throw new IntegrationTypeException();
             }
 
+            /** @var IntegrationInterface $integration */
             $integration = new $class($customerIntegration->settings);
-            $integration->notify($type);
+            $integration->notify($warning);
         }
     }
 }

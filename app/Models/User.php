@@ -22,6 +22,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property \Carbon\Carbon $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|Monitor[] $monitors
  * @property-read \Illuminate\Database\Eloquent\Collection|Warning[] $warnings
+ * @property-read \Illuminate\Database\Eloquent\Collection|Integration[] $integrations
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereEmail($value)

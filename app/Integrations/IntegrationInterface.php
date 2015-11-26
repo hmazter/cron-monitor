@@ -6,5 +6,8 @@ interface IntegrationInterface
 {
     public function __construct($settings);
 
-    public function notify($type);
+    /**
+     * @param \App\Models\Warning $warning
+     */
+    public function notify($warning);
 }
