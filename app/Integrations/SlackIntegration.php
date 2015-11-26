@@ -23,7 +23,7 @@ class SlackIntegration implements IntegrationInterface
         $url = $this->settings->webhook_url;
         $payload = [
             'username' => 'CronMonitor',
-            'text' => $warning->getTitle(),
+            'text' => $warning->getTitle() . " <".route('account.monitors.index')."|View my monitors>",
         ];
 
         $client = new Client();
