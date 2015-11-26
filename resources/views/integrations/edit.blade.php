@@ -6,6 +6,8 @@
         <div class="container">
             <h1>Edit {{ ucfirst($type) }} integrations</h1>
 
+            @include('partials.flash')
+
             {!! Form::model($integration, ['route' => ['account.integrations.update', $integration->id], 'method' => 'put']) !!}
 
             @include('integrations._form', ['submitText' => 'Save integration'])
