@@ -45,7 +45,7 @@ class IntegrationController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'type' => 'required|in:email,slack,hipchat'
+            'type' => 'required|in:email,slack,hipchat,sms'
         ]);
 
         // validate settings

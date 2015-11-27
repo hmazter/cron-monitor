@@ -9,7 +9,8 @@
         "laravel/framework": "5.1.*",
         "webpatser/laravel-uuid": "2.*",
         "laravelcollective/html": "5.1.*",
-        "guzzlehttp/guzzle": "^6.1"
+        "guzzlehttp/guzzle": "^6.1",
+        "twilio/sdk": "^4.6"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

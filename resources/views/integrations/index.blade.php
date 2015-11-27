@@ -106,6 +106,23 @@
                         Add integration</a>
                 </div>
             </div>
+
+            <div class="media">
+                <div class="media-left">
+                    <img class="media-object" src="/images/logo_twilio.png" width="64" alt="Hipchat logo">
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">SMS</h4>
+
+                    <p>Gummies chocolate bar sugar plum. Oat cake pastry pie. Bear claw dragée cotton candy dessert
+                        tiramisu jujubes brownie jujubes. Marshmallow bonbon pudding dragée pudding cupcake sweet.
+                        Lollipop macaroon icing biscuit jelly chocolate lemon drops. </p>
+                </div>
+                <div class="media-right">
+                    <a href="{{ route('account.integrations.create') }}?type=sms" class="btn btn-cta-primary">
+                        Add integration</a>
+                </div>
+            </div>
         </div>
     </section>
 
