@@ -26,7 +26,8 @@ class HipchatIntegration implements IntegrationInterface
         $payload = [
             'color' => 'red',
             'message_format' => 'html',
-            'message' => $warning->getTitle() . ' <a href="' . route('account.monitors.index') . '">View my monitors</a>',
+            'message' => $warning->getTitle() .
+                ' <a href="' . route('account.monitors.index') . '">View my monitors</a>',
         ];
 
         $client = new Client();

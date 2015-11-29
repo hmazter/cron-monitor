@@ -5,38 +5,51 @@ namespace App\Services;
 class TwilioService
 {
     /**
-     * @var \Services_Twilio
+     * @var string
      */
-    private $client;
+    private $sid;
 
     /**
      * @var string
      */
-    private $from;
+    private $auth;
 
     /**
      * TwilioService constructor.
      */
     public function __construct()
     {
-        $this->client = new \Services_Twilio(
-            config('services.twilio.account_sid'),
-            config('services.twilio.auth_token')
-        );
-
-        $this->from = config('services.twilio.sender_number');
+        $this->sid = config('services.twilio.account_sid');
+        $this->auth = config('services.twilio.auth_token');
     }
 
     /**
+     * Send a SMS
+     *
      * @param string $recipient
      * @param string $message
      */
     public function sendSMS($recipient, $message)
     {
-        $this->client->account->messages->sendMessage(
-            $this->from,
+        $client = new \Services_Twilio($this->sid, $this->auth);
+        $client->account->messages->sendMessage(
+            config('services.twilio.sender_number'),
             $recipient,
             $message
         );
+    }
+
+    /**
+     * Do a lookup and format a number correctly for the supplied country
+     *
+     * @param string $number    number to check
+     * @param string $country   country
+     * @return string       re-format number
+     */
+    public function numberLookUp($number, $country)
+    {
+        $client = new \Lookups_Services_Twilio($this->sid, $this->auth);
+        $response = $client->phone_numbers->get($number, array("CountryCode" => $country));
+        return $response->phone_number;
     }
 }

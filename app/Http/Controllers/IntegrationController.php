@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Integration;
 use App\Models\User;
+use App\Services\TwilioService;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -48,14 +49,14 @@ class IntegrationController extends Controller
             'type' => 'required|in:email,slack,hipchat,sms'
         ]);
 
-        // validate settings
+        $settings = $this->validateSettings($request->request->get('type'), $request);
 
         /** @var User $user */
         $user = $request->user();
         $user->integrations()->create([
             'name' => $request->request->get('name'),
             'type' => $request->request->get('type'),
-            'settings' => $request->request->get('settings'),
+            'settings' => $settings,
         ]);
 
         return redirect(route('account.integrations.index'));
@@ -87,11 +88,11 @@ class IntegrationController extends Controller
             'name' => 'required',
         ]);
 
-        // validate settings
+        $settings = $this->validateSettings($integration->type, $request);
 
         $integration->update([
             'name' => $request->request->get('name'),
-            'settings' => $request->request->get('settings'),
+            'settings' => $settings,
 
         ]);
 
@@ -110,5 +111,44 @@ class IntegrationController extends Controller
         $integration->delete();
 
         return redirect(route('account.integrations.index'));
+    }
+
+    /**
+     * @param string $type
+     * @param Request $request
+     * @return array
+     * @throws \Exception
+     */
+    private function validateSettings($type, Request $request)
+    {
+        switch ($type) {
+
+            case 'email':
+                $this->validate($request, [
+                    'settings.email' => 'required',
+                ]);
+                return $request->request->get('settings');
+
+            case 'slack':
+            case 'hipchat':
+                $this->validate($request, [
+                    'settings.webhook_url' => 'required',
+                ]);
+                return $request->request->get('settings');
+
+            case 'sms':
+                $this->validate($request, [
+                    'settings.recipient' => 'required',
+                    'settings.country' => 'required',
+                ]);
+
+                $settings = $request->request->get('settings');
+                $twilioService = new TwilioService();
+                $settings['recipient'] = $twilioService->numberLookUp($settings['recipient'], $settings['country']);
+
+                return $settings;
+        }
+
+        throw new \Exception('Invalid type');
     }
 }

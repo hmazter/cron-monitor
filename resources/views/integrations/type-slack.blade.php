@@ -6,5 +6,5 @@
 
 <div class="form-group">
     {!! Form::label('settings[webhook_url]', 'Webhook URL:') !!}
-    {!! Form::text('settings[webhook_url]', null, ['class' => 'form-control']) !!}
+    {!! Form::text('settings[webhook_url]', null, ['class' => 'form-control', 'required']) !!}
 </div>
